@@ -6,15 +6,16 @@ import UseEffectExample from "./UseEffectExample";
 import UseStateExample from "./UseStateExample";
 import UseContextExample from "./UseContextExample";
 import UseReducerExample from "./UseReducerExample";
+import UseMemoExample from "./UseMemoExample";
 
 function App() {
   return (
     <div className="App">
-      <UseContextExample />
+      {/* <UseContextExample />
       <UseStateExample />
-      <UseEffectExample />
-      <UseReducerExample />
-      
+      <UseEffectExample /> */}
+      {/* <UseReducerExample /> */}
+      <UseMemoExample />
     </div>
   );
 }
