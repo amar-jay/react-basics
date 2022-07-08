@@ -3,11 +3,15 @@ import UseEffectExample from "./UseEffectExample";
 
 interface ITodoState {
   todo: string;
-  todos: string[] | undefined;
+  todos: string[];
+  addTodo(todo: string[]): void;
+  setTodo: (todo: string) => void;
 }
 const initialState = {
-  todos: ["do something", "do something else"],
   todo: "",
+  setTodo: (todo: string) => {},
+  addTodo: (todo: string[]) => {},
+  todos: [],
 };
 
 const MyContext = createContext<ITodoState>(initialState);
@@ -17,9 +21,20 @@ function InputCountainer() {
 
   return (
     <div>
-      <h1> Enter a todo:</h1>
-      <input name="input" placeholder="input" value={ctx.todo} />
-      <button onClick={(e) => {}}>Add</button>
+      <input
+        name="input"
+        placeholder="input"
+        value={ctx.todo}
+        onChange={(e) => ctx.setTodo(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          ctx.addTodo([...ctx.todos, ctx.todo]);
+          ctx.setTodo("");
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }
@@ -28,10 +43,12 @@ function TodoList() {
 
   return (
     <div>
-      <h1> Todo List:</h1>
-      {ctx.todos!.map((todo, index) => (
-        <div key={index}>{todo}</div>
-      ))}
+      <h1>🎃 {ctx.todo}</h1>
+      <ul>
+        {ctx.todos.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -39,14 +56,15 @@ function Container({ children }: { children: React.ReactNode }) {
   return <div>{children}</div>;
 }
 function UseContextExample() {
-  const [count, setCount] = useState(0);
-
+  const [todo, setTodo] = useState("");
+  const [todos, addTodo] = useState<string[]>([]);
   // let's make a todo list instead of a counter
   return (
-    <MyContext.Provider value={initialState}>
+    <MyContext.Provider value={{ todo, setTodo, todos, addTodo }}>
       <Container>
-        <InputCountainer />
+        <h1> Use Context</h1>
         <TodoList />
+        <InputCountainer />
       </Container>
     </MyContext.Provider>
   );

@@ -11,10 +11,10 @@ import UseMemoExample from "./UseMemoExample";
 function App() {
   return (
     <div className="App">
-      {/* <UseContextExample />
+      <UseContextExample />
       <UseStateExample />
-      <UseEffectExample /> */}
-      {/* <UseReducerExample /> */}
+      <UseEffectExample />
+      <UseReducerExample />
       <UseMemoExample />
     </div>
   );
